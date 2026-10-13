@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { LayoutDashboard, Camera, History, BarChart3, BookOpen, Leaf, ChevronDown, Globe } from 'lucide-react';
+import { LayoutDashboard, Camera, History, BarChart3, BookOpen, Leaf, ChevronDown, Globe, Moon, Sun } from 'lucide-react';
 import { usePreferences } from '../context/PreferencesContext';
 import { t, LANGUAGES } from '../i18n/translations';
 
@@ -47,6 +47,14 @@ export default function Header({ active, onNavigate }) {
           ))}
         </nav>
         <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => updatePrefs({ theme: prefs.theme === 'dark' ? 'light' : 'dark' })}
+            className="inline-flex items-center justify-center rounded-md border border-[#D9E1DA] bg-white p-2 text-[#26352D] hover:bg-[#F3F7F3]"
+            aria-label={prefs.theme === 'dark' ? tr('themeLight') : tr('themeDark')}
+          >
+            {prefs.theme === 'dark' ? <Sun className="h-4 w-4" aria-hidden="true" /> : <Moon className="h-4 w-4" aria-hidden="true" />}
+          </button>
           <div className="relative">
             <button
               type="button"

@@ -5,7 +5,15 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>kachra-snap</title>
-  </head>
+    <script>
+    try {
+      const prefs = JSON.parse(localStorage.getItem('ecosort:prefs') || '{}');
+      if (prefs.theme === 'dark') document.documentElement.classList.add('dark');
+      document.documentElement.setAttribute('dir', prefs.language === 'ur' ? 'rtl' : 'ltr');
+      document.documentElement.lang = prefs.language === 'ur' ? 'ur' : prefs.language || 'en';
+    } catch {}
+  </script>
+</head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>

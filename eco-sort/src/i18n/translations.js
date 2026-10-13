@@ -345,6 +345,55 @@ export const extraTranslations = {
     shareLabel: 'شیئر',
     },
 };
+
+extraTranslations.hi = {
+  ...extraTranslations.hi,
+  noScans: 'अभी तक कोई स्कैन नहीं',
+  active: 'सक्रिय',
+  scan: 'स्कैन',
+  scans: 'स्कैन',
+  category_plastic: 'प्लास्टिक',
+  category_paper: 'पेपर और कार्डबोर्ड',
+  category_metal: 'धातु',
+  category_glass: 'कांच',
+  category_organic: 'जैविक और खाद योग्य',
+  category_ewaste: 'इलेक्ट्रॉनिक कचरा',
+  category_hazardous: 'बैटरी और खतरनाक कचरा',
+  category_textiles: 'वस्त्र',
+  category_residual: 'शेष या मिश्रित कचरा',
+  category_unknown: 'अज्ञात या निम्न विश्वास',
+  category_recyclable: 'रीसायकल योग्य',
+  detectedItem: 'पहचान आइटम',
+  whereToDispose: 'कहाँ निपटाएं',
+};
+
+extraTranslations.hinglish = Object.assign(
+  {},
+  Object.fromEntries(Object.entries(extraTranslations.en || {})),
+  extraTranslations.hinglish || {}
+);
+
+extraTranslations.ur = {
+  ...extraTranslations.ur,
+  noScans: 'ابھی تک کوئی اسکین نہیں',
+  active: 'فعال',
+  scan: 'اسکین',
+  scans: 'اسکین',
+  category_plastic: 'پلاسٹک',
+  category_paper: 'کاغذ اور بورڈ',
+  category_metal: 'دھات',
+  category_glass: 'شیشہ',
+  category_organic: 'نامیاتی اور کمپوسٹ',
+  category_ewaste: 'الیکٹرانک کچرا',
+  category_hazardous: 'بیٹری اور خطرناک کچرا',
+  category_textiles: 'کپڑا',
+  category_residual: 'باقی یا مخلوط کچرا',
+  category_unknown: 'نامعلوم یا کم اعتماد',
+  category_recyclable: 'ری سائیکل قابل',
+  detectedItem: 'شناخت شدہ آئٹم',
+  whereToDispose: 'کہاں نکالیں',
+};
+
 export function t(lang, key) {
   return (extraTranslations[lang]?.[key]) ?? (translations[lang]?.[key]) ?? (extraTranslations.en[key]) ?? (translations.en[key]) ?? key;
 }
