@@ -221,6 +221,8 @@ export const extraTranslations = {
     category_unknown: 'Unknown or Low Confidence',
     category_recyclable: 'Recyclable',
     modelOutput: 'Model output',
+    detectedItem: 'Detected item',
+    whereToDispose: 'Where to dispose',
     confidenceThreshold: 'confidence · threshold',
     lowConfidenceMessage: 'The model is not confident. Treat as unknown and verify with your local guidance.',
     disposalStream: 'Disposal stream',
