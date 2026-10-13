@@ -21,10 +21,11 @@ import {
 } from '../constants/categories';
 import { DISPOSAL_GUIDE } from '../constants/disposalGuide';
 import CategoryBadge from '../components/CategoryBadge';
+import Reveal from '../components/Reveal';
 import { usePreferences } from '../context/PreferencesContext';
 import { t } from '../i18n/translations';
 
-export default function Scan({ onSaved }) {
+export default function Scan({ onNavigate }) {
   const { prefs } = usePreferences();
   const tr = (key) => t(prefs.language, key);
   const categoryLabel = (id) => {
@@ -37,6 +38,8 @@ export default function Scan({ onSaved }) {
   const [dragging, setDragging] = useState(false);
   const [scanning, setScanning] = useState(false);
   const [result, setResult] = useState(null);
+  const [resultSaved, setResultSaved] = useState(false);
+  const [savingResult, setSavingResult] = useState(false);
   const [error, setError] = useState('');
   const [modelStatus, setModelStatus] = useState('idle');
   const [liveOpen, setLiveOpen] = useState(false);
@@ -86,6 +89,7 @@ export default function Scan({ onSaved }) {
     }
     setError('');
     setResult(null);
+    setResultSaved(false);
     if (preview) URL.revokeObjectURL(preview);
     const url = URL.createObjectURL(f);
     setFile(f);
@@ -159,21 +163,33 @@ export default function Scan({ onSaved }) {
       }
       const r = await classifyImage(img);
       setResult(r);
-      // Save record
-      const thumb = await createThumbnail(file);
-      addRecord({
-        id: generateId(),
-        category: r.category,
-        modelLabel: r.label,
-        confidence: r.confidence,
-        createdAt: new Date().toISOString(),
-        thumbnail: thumb,
-      });
-      onSaved?.();
+      setResultSaved(false);
     } catch (e) {
       setError(e?.message || 'Classification failed. Please try again.');
     } finally {
       setScanning(false);
+    }
+  };
+
+  const saveResult = async () => {
+    if (!result || !file || resultSaved || savingResult) return;
+    setSavingResult(true);
+    setError('');
+    try {
+      const thumb = await createThumbnail(file);
+      addRecord({
+        id: generateId(),
+        category: result.category,
+        modelLabel: result.label,
+        confidence: result.confidence,
+        createdAt: new Date().toISOString(),
+        thumbnail: thumb,
+      });
+      setResultSaved(true);
+    } catch (e) {
+      setError(e?.message || 'Failed to save scan result.');
+    } finally {
+      setSavingResult(false);
     }
   };
 
@@ -182,6 +198,7 @@ export default function Scan({ onSaved }) {
     setFile(null);
     setPreview('');
     setResult(null);
+    setResultSaved(false);
     setError('');
   };
 
@@ -475,13 +492,15 @@ export default function Scan({ onSaved }) {
                 </span>
               </div>
               <h2 className="mt-3 text-xl font-semibold text-charcoal">
-                {categoryLabel(result.category)}
+                {result.lowConfidence
+                  ? 'Unable to classify confidently'
+                  : categoryLabel(result.category)}
               </h2>
               <p className="text-xs text-secondary">
-                {tr('disposalStream')}: {DISPOSAL_STREAM[result.category]?.label}
+                {tr('disposalStream')}: {DISPOSAL_STREAM[result.category]?.label || 'Unknown'}
               </p>
               <p className="text-sm text-secondary">
-                {tr('modelOutput')}: {result.label}
+                {tr('detectedItem')}: {result.label}
               </p>
               <p className="mt-2 text-2xl font-semibold text-forest">
                 {Math.round(result.confidence * 100)}%
@@ -492,32 +511,55 @@ export default function Scan({ onSaved }) {
 
               {result.lowConfidence && (
                 <p className="mt-3 text-sm text-warning">
-                  The model is not confident. Treat as unknown and verify with your
-                  local guidance.
+                  Confidence is below the configured threshold. Keep this as
+                  Unknown / Low Confidence, retry with a clearer image, and verify
+                  with local guidance.
                 </p>
               )}
 
               {guide && (
-                <div className="mt-4 space-y-3">
+                <Reveal as="div" className="mt-4 space-y-3" delay={60}>
+                  <GuideBlock title="Recommended disposal action" items={guide.disposal} />
                   <GuideBlock title="Common examples" items={guide.examples} />
                   <GuideBlock title="Preparation" items={guide.preparation} />
-                  <GuideBlock title="Disposal" items={guide.disposal} />
                   <GuideBlock title="Avoid contamination" items={guide.contamination} />
                   {guide.safety?.length ? (
-                    <GuideBlock title="Safety" items={guide.safety} />
+                    <GuideBlock title="Safety tips" items={guide.safety} />
                   ) : null}
-                </div>
+                </Reveal>
               )}
 
               <p className="mt-4 text-xs text-secondary">
+                <strong>Where to dispose:</strong>{' '}
                 {DISPOSAL_GUIDE[result.category]?.local || DISPOSAL_GUIDE.unknown.local}
               </p>
 
-              <div className="mt-5 flex gap-2">
+              {resultSaved && (
+                <p className="mt-3 text-sm text-forest font-medium">
+                  Result saved to local scan history.
+                </p>
+              )}
+
+              <div className="mt-5 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => onNavigate?.('guide')}
+                  className="rounded-md bg-forest px-4 py-2 text-sm font-medium text-white hover:bg-deep"
+                >
+                  View Disposal Guide
+                </button>
+                <button
+                  type="button"
+                  onClick={saveResult}
+                  disabled={resultSaved || savingResult}
+                  className="rounded-md border border-border bg-white px-4 py-2 text-sm font-medium text-charcoal hover:bg-offwhite disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {savingResult ? 'Saving...' : resultSaved ? 'Saved' : 'Save Result'}
+                </button>
                 <button
                   type="button"
                   onClick={reset}
-                  className="rounded-md bg-forest px-4 py-2 text-sm font-medium text-white hover:bg-deep"
+                  className="rounded-md border border-border bg-white px-4 py-2 text-sm font-medium text-charcoal hover:bg-offwhite"
                 >
                   {tr('scanAnother')}
                 </button>

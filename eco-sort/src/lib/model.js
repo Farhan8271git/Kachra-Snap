@@ -1,10 +1,24 @@
-import * as tf from '@tensorflow/tfjs';
-import * as cocoSsd from '@tensorflow-models/coco-ssd';
+let tf = null;
+let cocoSsd = null;
 import {
   MODEL_URL,
   LABEL_TO_CATEGORY,
   CONFIDENCE_THRESHOLD,
 } from '../constants/categories';
+
+async function loadTensorFlow() {
+  if (!tf) {
+    tf = await import('@tensorflow/tfjs');
+  }
+  return tf;
+}
+
+async function loadCocoSsd() {
+  if (!cocoSsd) {
+    cocoSsd = await import('@tensorflow-models/coco-ssd');
+  }
+  return cocoSsd;
+}
 
 const OBJECT_CONFIDENCE_THRESHOLD = 0.62;
 
@@ -51,6 +65,7 @@ export async function loadModel(onStatus) {
     onStatus?.('loading');
     const results = await Promise.allSettled([
       (async () => {
+        await loadTensorFlow();
         const metadataResponse = await fetch(MODEL_URL + 'metadata.json');
         if (!metadataResponse.ok) throw new Error('Failed to load model metadata.');
         const metadata = await metadataResponse.json();
@@ -64,7 +79,10 @@ export async function loadModel(onStatus) {
         tmModel = model;
         return model;
       })(),
-      cocoSsd.load(),
+      (async () => {
+        const module = await loadCocoSsd();
+        return module.load();
+      })(),
     ]);
 
     if (results[1].status === 'fulfilled') {
