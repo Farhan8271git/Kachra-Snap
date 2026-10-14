@@ -24,6 +24,64 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+.dark { color-scheme: dark; }
+:root { color-scheme: light; }
+
+:root {
+  --app-bg: #F7F7F2;
+  --app-text: #252B27;
+  --app-muted: #68736B;
+  --app-surface: #FFFFFF;
+  --app-surface-muted: #F3F7F3;
+  --app-border: #D9E1DA;
+}
+.dark {
+  --app-bg: #0d1b13;
+  --app-text: #e8f0ea;
+  --app-muted: #a6baab;
+  --app-surface: #162018;
+  --app-surface-muted: #1f2b21;
+  --app-border: #29372c;
+}
+
+body {
+  background: var(--app-bg);
+  color: var(--app-text);
+}
+
+.dark body { background: var(--app-bg); color: var(--app-text); }
+.dark .bg-white { background-color: var(--app-surface) !important; }
+.dark .bg-offwhite { background-color: var(--app-bg) !important; }
+.dark .bg-[#F7F7F2] { background-color: var(--app-bg) !important; }
+.dark .bg-[#F3F7F3], .dark .bg-sage, .dark .bg-[#DCEBDD] { background-color: var(--app-surface-muted) !important; }
+.dark .bg-[#EAF2E5] { background-color: var(--app-surface-muted) !important; }
+.dark .bg-[#E8EEF5] { background-color: #1b2632 !important; }
+.dark .bg-[#0D2418] { background-color: #08110c !important; }
+.dark .bg-[#1F2B21] { background-color: #1f2b21 !important; }
+.dark .bg-white/95 { background-color: rgba(22,32,24,0.96) !important; }
+.dark .border-border { border-color: var(--app-border) !important; }
+.dark .border-[#D9E1DA] { border-color: var(--app-border) !important; }
+.dark .border-[#E3E7E0] { border-color: var(--app-border) !important; }
+.dark .border-border/?? { border-color: var(--app-border) !important; }
+
+.dark .text-charcoal { color: var(--app-text) !important; }
+.dark [class~="text-[#252B27]"] { color: var(--app-text) !important; }
+.dark [class~="text-[#26352D]"] { color: var(--app-text) !important; }
+.dark [class~="text-[#37443B]"] { color: #dce3dd !important; }
+.dark [class~="text-[#37443B]"] { color: #dce3dd !important; }
+.dark [class~="text-[#68736B]"] { color: var(--app-muted) !important; }
+.dark [class~="text-[#205C43]"] { color: #8fd1a9 !important; }
+.dark [class~="text-[#214A37]"] { color: #79b898 !important; }
+.dark .text-secondary { color: var(--app-muted) !important; }
+.dark .shadow-sm { box-shadow: 0 1px 2px rgb(0 0 0 / .45); }
+.dark input, .dark select, .dark textarea {
+  background-color: var(--app-surface-muted);
+  color: var(--app-text);
+  border-color: var(--app-border);
+}
+.dark option { background-color: var(--app-surface-muted); color: var(--app-text); }
+.dark .bg-lime-200 { background-color: #b7f34f; color: #08110c; }
+.dark .hover:text-[#205C43] { }
 :focus-visible {
   outline: 2px solid #285943;
   outline-offset: 2px;

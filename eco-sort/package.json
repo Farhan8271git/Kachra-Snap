@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "oxlint",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "validate:i18n": "node scripts/validate-i18n.cjs"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",

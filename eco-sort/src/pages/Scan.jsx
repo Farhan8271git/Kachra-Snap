@@ -78,8 +78,15 @@ export default function Scan({ onNavigate }) {
   useEffect(() => {
     return () => {
       stream?.getTracks().forEach((t) => t.stop());
+      liveStream?.getTracks().forEach((t) => t.stop());
     };
-  }, [stream]);
+  }, [stream, liveStream]);
+
+  useEffect(() => {
+    return () => {
+      if (preview) URL.revokeObjectURL(preview);
+    };
+  }, [preview]);
 
   const handleFile = (f) => {
     const err = validateImageFile(f);
