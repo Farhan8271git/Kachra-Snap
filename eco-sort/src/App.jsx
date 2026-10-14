@@ -1,47 +1,116 @@
-import { useEffect, useState } from 'react';
+import { Suspense, lazy, useEffect, useState } from 'react';
 import { PreferencesProvider } from './context/PreferencesContext';
 import Header from './components/Header';
 import Footer from './components/Footer';
-import Dashboard from './pages/Dashboard';
-import Scan from './pages/Scan';
-import History from './pages/History';
-import Analytics from './pages/Analytics';
-import Guide from './pages/Guide';
-import About from './pages/About';
-import Accessibility from './pages/Accessibility';
-import Contact from './pages/Contact';
-import Credits from './pages/Credits';
-import PrivacyPolicy from './pages/PrivacyPolicy';
-import Terms from './pages/Terms';
-import HowItWorks from './pages/HowItWorks';
+
+// Core application pages are loaded only when required.
+const Dashboard = lazy(() => import('./pages/Dashboard'));
+const Scan = lazy(() => import('./pages/Scan'));
+const History = lazy(() => import('./pages/History'));
+const Analytics = lazy(() => import('./pages/Analytics'));
+const Guide = lazy(() => import('./pages/Guide'));
+
+// Informational pages are loaded on demand.
+const About = lazy(() => import('./pages/About'));
+const Accessibility = lazy(() => import('./pages/Accessibility'));
+const Contact = lazy(() => import('./pages/Contact'));
+const Credits = lazy(() => import('./pages/Credits'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const Terms = lazy(() => import('./pages/Terms'));
+const HowItWorks = lazy(() => import('./pages/HowItWorks'));
+
+// Displays a fallback while a lazy-loaded page is loading.
+function PageFallback() {
+  return (
+    <div
+      className="mx-auto max-w-6xl px-4 py-8 text-sm text-[#68736B]"
+      role="status"
+      aria-live="polite"
+    >
+      Loading...
+    </div>
+  );
+}
 
 function AppContent() {
   const [page, setPage] = useState('dashboard');
+  const [guideCategory, setGuideCategory] = useState(null);
 
+  // Supports navigation with optional guide category information.
+  const navigate = (nextPage, options) => {
+    if (options?.category) {
+      setGuideCategory(options.category);
+    }
+
+    setPage(nextPage);
+  };
+
+  // Reset the viewport whenever the user changes pages.
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [page]);
 
-  const pages = {
-    dashboard: <Dashboard onNavigate={setPage} />,
-    scan: <Scan />,
-    history: <History />,
-    analytics: <Analytics />,
-    guide: <Guide />,
-    about: <About />,
-    accessibility: <Accessibility />,
-    contact: <Contact />,
-    credits: <Credits />,
-    privacy: <PrivacyPolicy />,
-    terms: <Terms />,
-    'how-it-works': <HowItWorks onNavigate={setPage} />,
-  };
+  // Resolve the current page without eagerly loading every page component.
+  let content = <Dashboard onNavigate={navigate} />;
+
+  switch (page) {
+    case 'scan':
+      content = <Scan onNavigate={navigate} />;
+      break;
+
+    case 'history':
+      content = <History />;
+      break;
+
+    case 'analytics':
+      content = <Analytics />;
+      break;
+
+    case 'guide':
+      content = <Guide initialCategory={guideCategory} />;
+      break;
+
+    case 'about':
+      content = <About />;
+      break;
+
+    case 'accessibility':
+      content = <Accessibility />;
+      break;
+
+    case 'contact':
+      content = <Contact />;
+      break;
+
+    case 'credits':
+      content = <Credits />;
+      break;
+
+    case 'privacy':
+      content = <PrivacyPolicy />;
+      break;
+
+    case 'terms':
+      content = <Terms />;
+      break;
+
+    case 'how-it-works':
+      content = <HowItWorks onNavigate={navigate} />;
+      break;
+
+    default:
+      content = <Dashboard onNavigate={navigate} />;
+  }
 
   return (
     <div className="min-h-full">
-      <Header active={page} onNavigate={setPage} />
-      {pages[page] || pages.dashboard}
-      <Footer onNavigate={setPage} />
+      <Header active={page} onNavigate={navigate} />
+
+      <Suspense fallback={<PageFallback />}>
+        {content}
+      </Suspense>
+
+      <Footer onNavigate={navigate} />
     </div>
   );
 }
