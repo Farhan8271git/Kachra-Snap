@@ -98,10 +98,10 @@ export default function Dashboard({ onNavigate }) {
                 title === 'Organic'
                   ? 'organic'
                   : title === 'Recyclable'
-                  ? 'recyclable'
-                  : title === 'E-Waste'
-                  ? 'ewaste'
-                  : 'unknown';
+                    ? 'recyclable'
+                    : title === 'E-Waste'
+                      ? 'ewaste'
+                      : 'unknown';
               return (
                 <button
                   key={title}
@@ -118,8 +118,7 @@ export default function Dashboard({ onNavigate }) {
           </div>
         </div>
       </section>
-
-      <Reveal as="section" className="bg-white/70 py-8 md:py-10" delay={0}>
+      <Reveal as="section" className="bg-white/70 dark:bg-slate-900 py-8 md:py-10"delay={0}>
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mb-6 max-w-2xl">
             <p className="text-xs font-semibold uppercase tracking-[0.24em] text-[#205C43]">

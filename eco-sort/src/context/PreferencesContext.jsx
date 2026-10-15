@@ -8,9 +8,28 @@ export function PreferencesProvider({ children }) {
   const [prefs, setPrefs] = useState(() => loadPrefs() || {});
 
   useEffect(() => {
-    const theme = prefs.theme || 'light';
     const root = document.documentElement;
-    root.classList.toggle('dark', theme === 'dark');
+
+    const applyTheme = (theme) => {
+      root.classList.toggle('dark', theme === 'dark');
+      root.style.colorScheme = theme;
+    };
+
+    if (prefs.theme === 'dark' || prefs.theme === 'light') {
+      applyTheme(prefs.theme);
+    } else {
+      const colorScheme = window.matchMedia('(prefers-color-scheme: dark)');
+      const applySystemTheme = () => applyTheme(colorScheme.matches ? 'dark' : 'light');
+      applySystemTheme();
+      colorScheme.addEventListener('change', applySystemTheme);
+
+      const lang = getLanguage(prefs.language || 'en');
+      root.setAttribute('dir', lang.dir);
+      root.setAttribute('lang', lang.code);
+
+      return () => colorScheme.removeEventListener('change', applySystemTheme);
+    }
+
     const lang = getLanguage(prefs.language || 'en');
     root.setAttribute('dir', lang.dir);
     root.setAttribute('lang', lang.code);

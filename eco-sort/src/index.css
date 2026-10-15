@@ -12,6 +12,8 @@
   --color-error: #B54747;
 }
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 html, body, #root {
   height: 100%;
 }
@@ -22,6 +24,104 @@ body {
   color: #252B27;
   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   -webkit-font-smoothing: antialiased;
+}
+
+.dark body {
+  background: #111827;
+  color: #e5e7eb;
+}
+
+.dark .bg-white,
+.dark .bg-white\/95 {
+  background-color: #1f2937;
+}
+
+.dark .bg-offwhite,
+.dark .bg-slate-50,
+.dark .bg-slate-100 {
+  background-color: #273444;
+}
+
+.dark .bg-emerald-50 {
+  background-color: #123b31;
+}
+
+.dark .bg-rose-50 {
+  background-color: #442a35;
+}
+
+.dark .bg-emerald-100 {
+  background-color: #155344;
+}
+
+.dark .bg-sage {
+  background-color: #214a37;
+}
+
+.dark [class~="bg-[#EAF2E5]"],
+.dark [class~="bg-[#E8EEF5]"],
+.dark [class~="bg-[#F5EDE3]"],
+.dark [class~="bg-[#F5E6E0]"],
+.dark [class~="bg-[#FBECEC]"] {
+  background-color: #273444;
+}
+
+.dark .text-charcoal,
+.dark .text-slate-900,
+.dark .text-slate-800,
+.dark .text-slate-700 {
+  color: #f3f4f6;
+}
+
+.dark .text-secondary,
+.dark .text-slate-600,
+.dark .text-slate-500 {
+  color: #c2ccd8;
+}
+
+.dark .text-forest,
+.dark .text-emerald-600,
+.dark .text-emerald-700,
+.dark .text-emerald-800 {
+  color: #6ee7b7;
+}
+
+.dark .text-rose-600,
+.dark .text-rose-700 {
+  color: #fda4af;
+}
+
+.dark .text-warning {
+  color: #fbbf24;
+}
+
+.dark .text-error {
+  color: #fca5a5;
+}
+
+.dark [class~="text-[#4A6B3A]"],
+.dark [class~="text-[#365A7A]"] {
+  color: #b7e4ca;
+}
+
+.dark .border-border,
+.dark .border-slate-200,
+.dark .border-slate-300,
+.dark [class~="border-[#F1D6D6]"] {
+  border-color: #3b4a5d;
+}
+
+.dark input,
+.dark select,
+.dark textarea {
+  background-color: #273444;
+  border-color: #4b5b70;
+  color: #f3f4f6;
+}
+
+.dark input::placeholder,
+.dark textarea::placeholder {
+  color: #aeb9c8;
 }
 
 .dark { color-scheme: dark; }
@@ -52,17 +152,16 @@ body {
 .dark body { background: var(--app-bg); color: var(--app-text); }
 .dark .bg-white { background-color: var(--app-surface) !important; }
 .dark .bg-offwhite { background-color: var(--app-bg) !important; }
-.dark .bg-[#F7F7F2] { background-color: var(--app-bg) !important; }
-.dark .bg-[#F3F7F3], .dark .bg-sage, .dark .bg-[#DCEBDD] { background-color: var(--app-surface-muted) !important; }
-.dark .bg-[#EAF2E5] { background-color: var(--app-surface-muted) !important; }
-.dark .bg-[#E8EEF5] { background-color: #1b2632 !important; }
-.dark .bg-[#0D2418] { background-color: #08110c !important; }
-.dark .bg-[#1F2B21] { background-color: #1f2b21 !important; }
-.dark .bg-white/95 { background-color: rgba(22,32,24,0.96) !important; }
+.dark [class~="bg-[#F7F7F2]"] { background-color: var(--app-bg) !important; }
+.dark [class~="bg-[#F3F7F3]"], .dark .bg-sage, .dark [class~="bg-[#DCEBDD]"] { background-color: var(--app-surface-muted) !important; }
+.dark [class~="bg-[#EAF2E5]"] { background-color: var(--app-surface-muted) !important; }
+.dark [class~="bg-[#E8EEF5]"] { background-color: #1b2632 !important; }
+.dark [class~="bg-[#0D2418]"] { background-color: #08110c !important; }
+.dark [class~="bg-[#1F2B21]"] { background-color: #1f2b21 !important; }
+.dark [class~="bg-white/95"] { background-color: rgba(22,32,24,0.96) !important; }
 .dark .border-border { border-color: var(--app-border) !important; }
-.dark .border-[#D9E1DA] { border-color: var(--app-border) !important; }
-.dark .border-[#E3E7E0] { border-color: var(--app-border) !important; }
-.dark .border-border/?? { border-color: var(--app-border) !important; }
+.dark [class~="border-[#D9E1DA]"] { border-color: var(--app-border) !important; }
+.dark [class~="border-[#E3E7E0]"] { border-color: var(--app-border) !important; }
 
 .dark .text-charcoal { color: var(--app-text) !important; }
 .dark [class~="text-[#252B27]"] { color: var(--app-text) !important; }
@@ -81,7 +180,6 @@ body {
 }
 .dark option { background-color: var(--app-surface-muted); color: var(--app-text); }
 .dark .bg-lime-200 { background-color: #b7f34f; color: #08110c; }
-.dark .hover:text-[#205C43] { }
 :focus-visible {
   outline: 2px solid #285943;
   outline-offset: 2px;
