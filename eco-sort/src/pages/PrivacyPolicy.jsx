@@ -2,7 +2,7 @@ import React from 'react';
 import { ShieldCheck, Lock, Database, Trash2 } from 'lucide-react';
 
 const appName = 'Kachra-Snap';
-const contactEmail = 'hello@ecosort.app';
+const contactEmail = 'farhan143865@gmail.com';
 
 export default function PrivacyPolicy() {
   return (
