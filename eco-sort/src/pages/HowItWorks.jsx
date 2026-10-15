@@ -18,7 +18,7 @@ export default function HowItWorks({ onNavigate }) {
       num: '03',
       title: 'Confidence Evaluation & Safety Guardrails',
       icon: Sliders,
-      desc: 'The model produces a softmax probability distribution across all trained material classes. If the top class confidence falls below 65%, EcoSort AI intentionally reports the result as "Uncertain" to prevent contamination from wish-cycling.',
+      desc: 'The model produces a softmax probability distribution across all trained material classes. If the top class confidence falls below 65%, Kachra-Snap intentionally reports the result as "Uncertain" to prevent contamination from wish-cycling.',
     },
     {
       num: '04',
@@ -32,7 +32,7 @@ export default function HowItWorks({ onNavigate }) {
     <div className="space-y-12 max-w-4xl mx-auto py-4 px-4">
       <div className="text-center space-y-3">
         <h1 className="text-3xl sm:text-5xl font-black text-charcoal tracking-tight">
-          How EcoSort AI Works
+          How Kachra-Snap Works
         </h1>
         <p className="text-sm sm:text-base text-secondary max-w-2xl mx-auto leading-relaxed">
           Explore the technical pipeline behind our browser-first waste classification system and local inference engine.

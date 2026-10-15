@@ -54,7 +54,7 @@ export default function Dashboard({ onNavigate }) {
 
 
   return (
-    <main className="min-h-screen bg-offwhite text-charcoal">
+    <main className="bg-offwhite text-charcoal">
       <section className="relative overflow-hidden border-b border-[#D9E1DA] bg-[#0D2418] text-white">
         <div className="mx-auto grid max-w-7xl gap-8 px-4 py-10 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 lg:px-8 lg:py-12">
           <div className="max-w-2xl">

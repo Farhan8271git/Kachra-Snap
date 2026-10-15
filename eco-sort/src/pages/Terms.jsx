@@ -1,7 +1,7 @@
 import React from 'react';
 import { FileText, AlertTriangle, CheckCircle, Scale } from 'lucide-react';
 
-const appName = 'EcoSort AI';
+const appName = 'Kachra-Snap';
 
 export default function Terms() {
   return (

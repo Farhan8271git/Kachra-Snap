@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Mail, Send, CheckCircle2, AlertCircle } from 'lucide-react';
 
-const appName = 'EcoSort AI';
+const appName = 'Kachra-Snap';
 const contactEmail = 'Support@ecosort.ai';
 
 export default function Contact() {

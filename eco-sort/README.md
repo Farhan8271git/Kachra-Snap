@@ -2,7 +2,7 @@
 
 **Smart Waste Classifier App | SDG 15: Life on Land**
 
-EcoSort AI is a web application concept designed to help users identify waste categories and understand how to dispose of waste responsibly.
+Kachra-Snap is a web application concept designed to help users identify waste categories and understand how to dispose of waste responsibly.
 
 The project is currently under development. The UI and core application pages have been implemented, while AI model training and integration are still in progress.
 

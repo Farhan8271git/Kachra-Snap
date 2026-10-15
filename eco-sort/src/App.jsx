@@ -103,12 +103,14 @@ function AppContent() {
   }
 
   return (
-    <div className="min-h-full">
+    <div className="flex min-h-dvh flex-col">
       <Header active={page} onNavigate={navigate} />
 
-      <Suspense fallback={<PageFallback />}>
-        {content}
-      </Suspense>
+      <div className="flex-1">
+        <Suspense fallback={<PageFallback />}>
+          {content}
+        </Suspense>
+      </div>
 
       <Footer onNavigate={navigate} />
     </div>

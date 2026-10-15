@@ -10,7 +10,7 @@ export default function About() {
           <span>BioSolve Hackathon 2026</span>
         </div>
         <h1 className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tight">
-          About EcoSort AI
+          About Kachra-Snap
         </h1>
         <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
           Developed for the Software & Digital track of the BioSolve Hackathon to make waste sorting transparent, private, and contamination-free.
@@ -41,7 +41,7 @@ export default function About() {
               Our Digital Solution
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-              EcoSort AI brings computer vision directly to consumers' fingertips without friction. By operating completely in the browser, users can instantly determine if an item is truly recyclable, organic compost, or toxic e-waste—even with no cell signal in recycling basements or rural parks.
+              Kachra-Snap brings computer vision directly to consumers' fingertips without friction. By operating completely in the browser, users can instantly determine if an item is truly recyclable, organic compost, or toxic e-waste—even with no cell signal in recycling basements or rural parks.
             </p>
           </div>
         </div>

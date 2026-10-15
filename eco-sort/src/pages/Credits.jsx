@@ -1,7 +1,7 @@
 import React from 'react';
 import { Award, ExternalLink, Heart } from 'lucide-react';
 
-const appName = 'EcoSort AI';
+const appName = 'Kachra-Snap';
 
 export default function Credits() {
   const credits = [

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Eye, Check, Keyboard, Smartphone } from 'lucide-react';
 
-const appName = 'EcoSort AI';
-const contactEmail = 'hello@ecosort.app';
+const appName = 'Kachra-Snap';
+const contactEmail = 'hello@kachrasnap.app';
 
 export default function Accessibility() {
   return (

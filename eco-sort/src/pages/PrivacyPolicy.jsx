@@ -1,7 +1,7 @@
 import React from 'react';
 import { ShieldCheck, Lock, Database, Trash2 } from 'lucide-react';
 
-const appName = 'EcoSort AI';
+const appName = 'Kachra-Snap';
 const contactEmail = 'hello@ecosort.app';
 
 export default function PrivacyPolicy() {
