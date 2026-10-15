@@ -3,10 +3,11 @@ import { ChevronDown } from 'lucide-react';
 import { DISPOSAL_GUIDE } from '../constants/disposalGuide';
 import { usePreferences } from '../context/PreferencesContext';
 import { t } from '../i18n/translations';
+import Reveal from '../components/Reveal';
 
 const ORDER = ['recyclable', 'organic', 'ewaste', 'unknown'];
 
-export default function Guide() {
+export default function Guide({ initialCategory }) {
   const { prefs } = usePreferences();
   const tr = (key) => t(prefs.language, key);
   const categoryLabel = (id) => {
@@ -14,16 +15,18 @@ export default function Guide() {
     const value = t(prefs.language, key);
     return value === key ? id : value;
   };
-  const [open, setOpen] = useState('plastic');
+  const [open, setOpen] = useState(initialCategory || null);
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-6">
-      <h1 className="text-2xl font-semibold text-charcoal">{tr('guideTitle')}</h1>
-      <p className="text-sm text-secondary">
-        {tr('guideSubtitle')}
-      </p>
+      <Reveal as="div">
+        <h1 className="text-2xl font-semibold text-charcoal">{tr('guideTitle')}</h1>
+        <p className="text-sm text-secondary">
+          {tr('guideSubtitle')}
+        </p>
+      </Reveal>
 
-      <div className="mt-6 space-y-2">
+      <Reveal as="div" className="mt-6 space-y-2" delay={60}>
         {ORDER.map((id) => {
           const g = DISPOSAL_GUIDE[id];
           const isOpen = open === id;
@@ -59,7 +62,7 @@ export default function Guide() {
             </div>
           );
         })}
-      </div>
+      </Reveal>
     </main>
   );
 }

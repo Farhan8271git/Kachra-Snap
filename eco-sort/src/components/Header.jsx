@@ -1,5 +1,17 @@
 import { useState } from 'react';
-import { LayoutDashboard, Camera, History, BarChart3, BookOpen, Cpu, Leaf, ChevronDown, Globe, Moon, Sun } from 'lucide-react';
+import {
+  LayoutDashboard,
+  Camera,
+  History,
+  BarChart3,
+  BookOpen,
+  Cpu,
+  Leaf,
+  ChevronDown,
+  Globe,
+  Moon,
+  Sun,
+} from 'lucide-react';
 import { usePreferences } from '../context/PreferencesContext';
 import { t, LANGUAGES } from '../i18n/translations';
 
@@ -51,6 +63,7 @@ export default function Header({ active, onNavigate }) {
           ))}
         </nav>
         <div className="flex items-center gap-2">
+         
           <div className="relative">
             <button
               type="button"

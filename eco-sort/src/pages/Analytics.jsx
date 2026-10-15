@@ -3,6 +3,7 @@ import { BarChart3, PieChart, Activity } from 'lucide-react';
 import { loadHistory } from '../lib/storage';
 import { CATEGORY_LABEL, toApplicationCategory } from '../constants/categories';
 import CategoryBadge from '../components/CategoryBadge';
+import Reveal from '../components/Reveal';
 import { usePreferences } from '../context/PreferencesContext';
 import { t } from '../i18n/translations';
 
@@ -123,17 +124,17 @@ export default function Analytics() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
+      <Reveal as="div" className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h1 className="text-2xl font-semibold text-charcoal">{tr('analyticsTitle')}</h1>
           <p className="text-sm text-secondary">
             All metrics are derived from your saved scan records.
           </p>
         </div>
-      </div>
+      </Reveal>
 
       {/* Summary metrics */}
-      <div className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6">
+      <Reveal as="div" className="mt-6 grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-6" delay={60}>
         <Stat label={tr('totalScans')} value={total} />
         <Stat label={tr('avgConfidence')} value={Math.round(avgConf * 100) + '%'} />
         <Stat label="Uncertain" value={uncertain} />
@@ -143,10 +144,10 @@ export default function Analytics() {
           label="Most common"
           value={topCategory ? CATEGORY_LABEL[topCategory.category] : 'None'}
         />
-      </div>
+      </Reveal>
 
       {/* {tr('categoryDistribution')} */}
-      <section className="mt-6 rounded-lg border border-border bg-white p-4">
+      <Reveal as="section" className="mt-6 rounded-lg border border-border bg-white p-4" delay={120}>
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
             <h2 className="text-sm font-semibold text-charcoal">
@@ -249,10 +250,10 @@ export default function Analytics() {
             </div>
           </div>
         )}
-      </section>
+      </Reveal>
 
       {/* {tr('confidenceDistribution')} */}
-      <section className="mt-6 rounded-lg border border-border bg-white p-4">
+      <Reveal as="section" className="mt-6 rounded-lg border border-border bg-white p-4" delay={180}>
         <h2 className="text-sm font-semibold text-charcoal">
           {tr('confidenceDistribution')}
         </h2>
@@ -277,10 +278,10 @@ export default function Analytics() {
             </div>
           ))}
         </div>
-      </section>
+      </Reveal>
 
       {/* {tr('recentActivity')} */}
-      <section className="mt-6 rounded-lg border border-border bg-white p-4">
+      <Reveal as="section" className="mt-6 rounded-lg border border-border bg-white p-4" delay={240}>
         <div className="flex items-center gap-2">
           <Activity className="h-4 w-4 text-forest" aria-hidden="true" />
           <h2 className="text-sm font-semibold text-charcoal">
@@ -324,10 +325,10 @@ export default function Analytics() {
         <p className="mt-3 text-xs text-secondary">
           {weekCount} scan{weekCount === 1 ? '' : 's'} recorded this week (Monday-Sunday).
         </p>
-      </section>
+      </Reveal>
 
       {/* Category table */}
-      <section className="mt-6 rounded-lg border border-border bg-white p-4">
+      <Reveal as="section" className="mt-6 rounded-lg border border-border bg-white p-4" delay={300}>
         <h2 className="text-sm font-semibold text-charcoal">{tr('categoryBreakdown')}</h2>
         {catStats.length === 0 ? (
           <p className="mt-3 text-sm text-secondary">{tr('noDataYet')}</p>
@@ -361,7 +362,7 @@ export default function Analytics() {
             </table>
           </div>
         )}
-      </section>
+      </Reveal>
 
       {total > 0 && (
         <p className="mt-4 text-xs text-secondary">

@@ -7,6 +7,7 @@ import {
 } from '../lib/storage';
 import { CATEGORY_LABEL, DISPOSAL_STREAM, toApplicationCategory } from '../constants/categories';
 import CategoryBadge from '../components/CategoryBadge';
+import Reveal from '../components/Reveal';
 import { usePreferences } from '../context/PreferencesContext';
 import { t } from '../i18n/translations';
 
@@ -37,7 +38,7 @@ export default function History() {
 
   return (
     <main className="mx-auto max-w-6xl px-4 py-6">
-      <div className="flex flex-wrap items-end justify-between gap-3">
+      <Reveal as="div" className="flex flex-wrap items-end justify-between gap-3" delay={0}>
         <div>
           <h1 className="text-2xl font-semibold text-charcoal">{tr('historyTitle')}</h1>
           <p className="text-sm text-secondary">
@@ -70,17 +71,17 @@ export default function History() {
             {tr('clearAll')}
           </button>
         </div>
-      </div>
+      </Reveal>
 
       {filtered.length === 0 ? (
-        <div className="mt-6 rounded-lg border border-border bg-white p-6 text-center">
+        <Reveal as="div" className="mt-6 rounded-lg border border-border bg-white p-6 text-center" delay={60}>
           <p className="text-charcoal font-medium">{tr('noRecords')}</p>
           <p className="mt-1 text-sm text-secondary">
             {tr('scannedItemsHere')}
           </p>
-        </div>
+        </Reveal>
       ) : (
-        <ul className="mt-6 divide-y divide-border rounded-lg border border-border bg-white">
+        <Reveal as="ul" className="mt-6 divide-y divide-border rounded-lg border border-border bg-white" delay={60}>
           {filtered.map((r) => (
             <li
               key={r.id}
@@ -119,7 +120,7 @@ export default function History() {
               </button>
             </li>
           ))}
-        </ul>
+        </Reveal>
       )}
 
       {confirmClear && (
